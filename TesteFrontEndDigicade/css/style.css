@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+}
+
+@media only screen and (max-width:768px) {
+    .sidenav {
+        height: 90%;
+        width: 100%;
+        position: fixed;
+        z-index: 1;
+        top: 4em;
+        background-color: #FFFFFF;
+        overflow: scroll;
+        transition: 0.5s;
+        padding-top: 20px;
+        padding-left: 20px;
+    }
+    .menuMenu {
+        display: none;
+    }
+    .menuMapa {
+        display: inline;
+    }
+    .menuTresPontos {
+        display: inline;
+    }
+    .menuLogo {
+        display: none;
+    }
+}
+
+@media only screen and (min-width:769px) {
+    .sidenav {
+        height: 90%;
+        width: 23em;
+        position: fixed;
+        z-index: 1;
+        top: 4em;
+        background-color: #FFFFFF;
+        overflow: scroll;
+        transition: 0.5s;
+        padding-top: 20px;
+    }
+    .menuMenu {
+        display: none;
+    }
+    .menuMapa {
+        display: none;
+    }
+    .menuTresPontos {
+        display: none;
+    }
+    .menuLogo {
+        display: inline;
+    }
+}
+
+#map {
+    height: 36em;
+    width: 100%;
+}
+
+.fontLista {
+    font-size: 12px;
+    width: 33%;
+    text-align: left;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    margin-left: 20px;
+}
+
+input {
+    width: 80%;
+    padding: 6px 10px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 12px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 7px 10px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 12px;
+    padding: 7px 10px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+header {
+    width: 100%;
+    height: 4em;
+    z-index: 1;
+    background-color: #8B1A1A;
+    position: fixed;
+}
+
+.logo {
+    margin-top: 1.0em;
+    margin-left: 1.0em;
+}
+
+.positionIcones {
+    text-align: right;
+}
+
+.titulo {
+    font-family: Franklin Gothic Book;
+    font-size: 16px;
+    color: #757575;
+}
+
+.menu {
+    width: 0;
+    z-index: 1;
+    top: 0.4em;
+    left: 0.5em;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+#formulario input {
+    margin-bottom: 10px;
+}
+
+.newClientLink{
+    text-decoration: none;
+    cursor:pointer;
+}

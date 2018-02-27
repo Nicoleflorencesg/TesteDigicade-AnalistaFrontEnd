@@ -1,0 +1,169 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Digicade</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTFnX-QWfIlHjriiyyorEyLATk53gQgSU&callback=initMap" async
+        defer></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span id="iconeLogo" class="menuLogo">
+                <img src="./imagens/logo-digicade.png">
+            </span>
+        </div>
+        <div class="positionIcones">
+            <span id="iconeMenu" class="menuMenu menu" onclick="openNav()">
+                <img src="./imagens/ic_format_list_bulleted_white_36dp.png">
+            </span>
+            <span id="iconeMapa" class="menuMapa menu" onclick="closeNav()">
+                <img src="./imagens/ic_map_white_36dp.png">
+            </span>
+            <span id="iconeTresPontos" class="menuTresPontos menu">
+                <img src="./imagens/ic_more_vert_white_36dp.png">
+            </span>
+        </div>
+    </header>
+
+    <div id="mySidenav" class="sidenav" style="height:100%">
+        <div class="clientes" id="clientes">
+            <div class="titulo">
+                <div class="col-md-6" style="float:left">
+                    <p>Lista de Clientes</p>
+                </div>
+                <div class="col-md-6" style="float:right">
+                    <a class="newClientLink" onclick="toggleFormView()"> Novo Cliente </a>
+                </div>
+            </div>
+            <hr align="center" width="100%" size="1">
+            <table id="grid">
+                <thead>
+                    <tr>
+                        <th class="fontLista">Nome</th>
+                        <th class="fontLista">Telefone</th>
+                        <th class="fontLista"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="padding-left:20px" class="formularioControl">
+            <form id="formulario">
+
+                <h4 class="titulo">Cadastro de Cliente</h4>
+                <label for="nome">Nome</label>
+                <br>
+                <input type="text" id="nome" placeholder="Preencha o nome">
+                <br>
+                <label for="cpf">Cpf</label>
+                <br>
+                <input type="text" class="cpf" id="cpf" placeholder="Preencha o cpf">
+                <br>
+                <label for="telefone">Telefone</label>
+                <br>
+                <input type="text" class="phone" id="telefone" placeholder="Preencha o telefone">
+                <br>
+                <label for="email">Email</label>
+                <br>
+                <input type="email" id="email" placeholder="Preencha o email">
+                <br>
+                <label for="latitude">Latitude</label>
+                <br>
+                <input type="text" id="latitude" placeholder="Preencha a latitude">
+                <br>
+                <label for="longitude">Longitude</label>
+                <br>
+                <input type="text" id="longitude" placeholder="Preencha a longitude">
+                <input type="hidden" id="href">
+                <br />
+                <button type="button" class="formularioControl btn btn-default dropdown-toggle" style="width:100px" id="botaoCancelar" onclick="cancelar()">Cancelar</button>
+                <button type="submit" class="btn btn-default dropdown-toggle" style="background-color:#286090; color:white; width:100px">Salvar</button>
+            </form>
+
+
+        </div>
+
+    </div>
+
+    <div id="map" style="height:100%"></div>
+
+    <script>
+        var isEdition = false;
+        var form = document.getElementById('formulario');
+        var nome = document.getElementById('nome');
+        var cpf = document.getElementById('cpf');
+        var telefone = document.getElementById('telefone');
+        var email = document.getElementById('email');
+        var latitude = document.getElementById('latitude');
+        var longitude = document.getElementById('longitude');
+        $('.phone').mask('(00) 00000-0000');
+        $('.cpf').mask('000.000.000-00');
+        form.addEventListener('submit', function (e) {
+            if (validate()) {
+                e.preventDefault();
+                if (isEdition === true) {
+                    $.ajax({
+                        type: "PUT",
+                        url: $("#href").val(),
+                        data: JSON.stringify({
+                            nome: nome.value,
+                            cpf: cpf.value,
+                            telefone: telefone.value,
+                            email: email.value,
+                            latitude: latitude.value,
+                            longitude: longitude.value,
+                        }),
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function (data) {
+                            cancelar();
+                            carregarPontos();
+                            alert('Registro atualizado com sucesso');
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://app.digicade-hml.com.br/frontend-api/clientes",
+                        data: JSON.stringify({
+                            nome: nome.value,
+                            cpf: cpf.value,
+                            telefone: telefone.value,
+                            email: email.value,
+                            latitude: latitude.value,
+                            longitude: longitude.value,
+                        }),
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function (data) {
+                            cancelar();
+                            carregarPontos();
+                            alert('Registro salvo com sucesso');
+                        }
+                    });
+                }
+            } else {
+                e.preventDefault();
+                alert('Favor preencher nome, latitude e longitude corretamente!');
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>
